@@ -30,23 +30,16 @@ for root, dirs, files in os.walk(imgdir):
                 label_ids[label] = current_id
                 current_id += 1
             id_ = label_ids[label]
-            # print(label_ids)
-            # print(label, path)
-            # y_labels.append(label)
-            # x_trains.append(path)
             pil_image = Image.open(path).convert("L")
             image_array = np.array(pil_image, np.uint8)
             faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.5, minNeighbors=5)
-
+            if len(faces) == 0:
+                os.remove(path)
             for (x,y,w,h) in faces:
                 roi = image_array[y:y+h, x:x+w]
                 x_trains.append(roi)
                 y_labels.append(id_)
-                if label == 'luong': count+=1
-
-print(count)
-# print(y_labels)
-# print(x_trains)
+                
 
 with open("label.pkl", "wb") as f:
     pickle.dump(label_ids, f)
