@@ -33,8 +33,8 @@ for root, dirs, files in os.walk(imgdir):
             pil_image = Image.open(path).convert("L")
             image_array = np.array(pil_image, np.uint8)
             faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.5, minNeighbors=5)
-            if len(faces) == 0:
-                os.remove(path)
+            # if len(faces) == 0:
+            #     os.remove(path)
             for (x,y,w,h) in faces:
                 roi = image_array[y:y+h, x:x+w]
                 x_trains.append(roi)
