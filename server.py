@@ -36,6 +36,12 @@ def predict():
         print(labels[id_])
         if conf >= 0.2:
             name  = labels[id_]
-            return name
+            return {
+                "name": name,
+                "conf": conf
+            }
     os.remove(file_path)
-    return 'khong nhan ra'
+    return {
+        "name": "khong nhan ra",
+        "conf": 0
+    }
