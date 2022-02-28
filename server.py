@@ -22,6 +22,8 @@ with open("label.pkl", "rb") as f:
 @app.route('/predict', methods=['POST'])
 def predict():
     file = request.files['file']
+    if not os.path.isdir("file/"):
+        os.makedirs("file")
     file.save(f'file/{file.filename}')
     file_path = f'file/{file.filename}'
     img = cv.imread(file_path)
